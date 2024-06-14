@@ -40,9 +40,9 @@ const HomePage = () => {
             <div className="bg-gray-800 text-white py-12 text-center">
                 <h3 className="text-xl font-bold mb-2">Ready to take control of your passwords?</h3>
                 <p className="mb-6">Sign up today and start securing your digital life.</p>
-                <button className="text-white bg-red-500 hover:bg-red-700 font-medium py-2 px-6 rounded">
+                <Link to={'/Signup'}  className="text-white bg-red-500 hover:bg-red-700 font-medium py-2 px-6 rounded">
                     Sign Up Now
-                </button>
+                </Link >
             </div>
 
           

@@ -1,11 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Name, setName] = useState("");
+  let token = localStorage.getItem("AccessToken");
+  const getlogin = async (token) => {
+    let res = await fetch("http://localhost:5000/verifylogin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token }),
+    });
+    let status = await res.json();
+    if (status.status) {
+      toast.success("already logged in please log out")
+      setTimeout(() => {
+        window.location = "http://localhost:5173";
+      }, 200);
+      
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      getlogin(token);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +42,13 @@ function SignUp() {
     });
     // console.log(data);
     if(data.status){
-      window.location='/'
+      toast.success("signed up succesfull")
+      setTimeout(() => {
+        
+        window.location='/'
+      }, 500);
+    }else{
+      toast.error("Unexpected error occured")
     }
 
     // Here, you'd usually handle the login logic, like calling an API.
@@ -25,6 +56,7 @@ function SignUp() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <Toaster/>
       <div className="max-w-md w-full space-y-8 p-10 bg-white shadow-lg rounded-xl">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

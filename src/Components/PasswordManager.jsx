@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PasswordForm from "./PasswordForm";
-import PasswordViewTable from "./PasswordViewTable";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
